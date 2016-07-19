@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">InputValidation</string>
+    <string name="required_number_validation">Field is required and number only</string>
+</resources>
