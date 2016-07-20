@@ -13,6 +13,10 @@ public interface FieldValidator {
     TextView getControl();
 
 
+
+
+
+
     FieldValidator addValidator(IValidator iValidator);
 
 

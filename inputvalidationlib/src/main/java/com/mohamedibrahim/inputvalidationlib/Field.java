@@ -39,6 +39,7 @@ public class Field implements FieldValidator {
         return control;
     }
 
+
     private String getValue() {
         return getControl().getText().toString();
     }
@@ -48,4 +49,6 @@ public class Field implements FieldValidator {
         validatorList.add(iValidator);
         return this;
     }
+
+
 }

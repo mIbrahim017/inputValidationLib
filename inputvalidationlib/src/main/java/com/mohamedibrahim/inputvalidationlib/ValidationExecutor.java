@@ -1,5 +1,7 @@
 package com.mohamedibrahim.inputvalidationlib;
 
+import android.widget.TextView;
+
 import java.util.ArrayDeque;
 
 /**
@@ -9,10 +11,12 @@ import java.util.ArrayDeque;
 public class ValidationExecutor {
     private final ArrayDeque<FieldValidator> fieldValidators;
     private final ValidationListener validationListener;
+    private final BaseUIValidation baseUIValidation;
 
 
-    public ValidationExecutor(ValidationListener validationListener) {
+    public ValidationExecutor(ValidationListener validationListener, BaseUIValidation baseUIValidation) {
         this.validationListener = validationListener;
+        this.baseUIValidation = baseUIValidation;
         this.fieldValidators = new ArrayDeque<>();
     }
 
@@ -40,14 +44,17 @@ public class ValidationExecutor {
         for (FieldValidator fieldValidator : fieldValidators) {
             IValidator validate = fieldValidator.validate();
             if (validate != null) {
-                validationListener.onValidationFail(fieldValidator, validate);
+                baseUIValidation.setupValidationUI(fieldValidator.getControl(), validate);
+                validationListener.onValidationFail(fieldValidator.getControl(), validate);
                 validationListener.handleValidationUI();
                 return;
             }
         }
 
+        baseUIValidation.setValidationPass();
         validationListener.onValidatePass();
         validationListener.handleValidationUI();
+
 
     }
 
@@ -65,7 +72,7 @@ public class ValidationExecutor {
 
         void handleValidationUI();
 
-        void onValidationFail(FieldValidator field, IValidator iValidator);
+        void onValidationFail(TextView field, IValidator iValidator);
     }
 
 
