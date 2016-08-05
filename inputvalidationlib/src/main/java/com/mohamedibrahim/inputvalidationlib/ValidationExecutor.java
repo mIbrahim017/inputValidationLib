@@ -8,9 +8,6 @@ import java.util.ArrayDeque;
  * Created by mohamed.ibrahim on 7/19/2016.
  */
 
-/**
- * class responsible for execute the all the validators
- */
 public class ValidationExecutor {
     private final ArrayDeque<FieldValidator> fieldValidators;
     private final ValidationListener validationListener;
@@ -24,41 +21,17 @@ public class ValidationExecutor {
     }
 
 
-    /**
-     * add new Field Validator
-     *
-     * @param fieldValidator
-     */
     public void addFieldValidator(FieldValidator fieldValidator) {
         fieldValidators.add(fieldValidator);
     }
 
 
-    /**
-     * remove Field Validator
-     *
-     * @param fieldValidator
-     */
     public void removeFieldValidator(FieldValidator fieldValidator) {
         fieldValidators.remove(fieldValidator);
 
     }
 
 
-    /**
-     * remove all @{@link FieldValidator}
-     */
-    public void removeAllValidators() {
-        for (FieldValidator fieldValidator : fieldValidators) {
-            fieldValidators.remove(fieldValidator);
-
-        }
-    }
-
-
-    /**
-     * run all validation in the FieldValidators
-     */
     public void execute() {
 
 
@@ -71,7 +44,7 @@ public class ValidationExecutor {
         for (FieldValidator fieldValidator : fieldValidators) {
             IValidator validate = fieldValidator.validate();
             if (validate != null) {
-                baseUIValidation.updateValidationUI(fieldValidator.getControl(), validate);
+                baseUIValidation.setupValidationUI(fieldValidator.getControl(), validate);
                 validationListener.onValidationFail(fieldValidator.getControl(), validate);
                 validationListener.handleValidationUI();
                 return;
@@ -83,6 +56,14 @@ public class ValidationExecutor {
         validationListener.handleValidationUI();
 
 
+    }
+
+
+    public void removeAllValidators() {
+        for (FieldValidator fieldValidator : fieldValidators) {
+            fieldValidators.remove(fieldValidator);
+
+        }
     }
 
 

@@ -1,5 +1,6 @@
 package com.mohamedibrahim.inputvalidationlib;
 
+
 import android.content.Context;
 import android.text.TextUtils;
 import android.widget.TextView;
@@ -20,6 +21,8 @@ public abstract class BaseUIValidation {
     private static final String DEFAULT_ERROR_MESSAGE = null;
 
 
+
+
     private TextView control;
     private int viewId;
     private String errorMessage;
@@ -31,7 +34,7 @@ public abstract class BaseUIValidation {
      * @param field
      * @param iValidator
      */
-    void updateValidationUI(TextView field, IValidator iValidator) {
+    protected void updateValidationUI(TextView field, IValidator iValidator) {
 
         this.viewId = field.getId();
         this.control = field;
@@ -49,7 +52,7 @@ public abstract class BaseUIValidation {
 
 
     /**
-     * reset the fields with default values  when the valiation pass
+     * clean the fields with default values  when the valiation pass
      */
     void setValidationPass() {
         viewId = DEFAULT_VIEW_ID;
@@ -59,7 +62,7 @@ public abstract class BaseUIValidation {
     /**
      * @param context
      * @param iValidator
-     * @return Error message related to the validator from resources or from string
+     * @return SignUpError message related to the validator from resources or from string
      */
     private String getErrorMessage(Context context, IValidator iValidator) {
         try {
